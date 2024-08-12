@@ -59,7 +59,6 @@ class HomePage extends StatelessWidget {
                     }).toList(),
                   ),
                 ),
-                // Fixed TextField and Button
                 Positioned(
                   bottom: 0,
                   left: 0,

@@ -58,7 +58,7 @@ class TodoRepo {
 
   Future<TodoModel> updateTodos(int id, Map<String, dynamic> updates) async {
     try {
-      final response = await http.put(
+      final response = await http.patch(
         Uri.parse('$baseUrl/$id'),
         headers: {'Content-type': 'application/json'},
         body: jsonEncode({
@@ -68,7 +68,9 @@ class TodoRepo {
         }),
       );
       print('Request URL: $baseUrl/$id');
-      print('Request Body: ${jsonEncode(updates)}');
+      print('Request Body: ${jsonEncode(
+        updates,
+      )}');
       print('Response Status: ${response.statusCode}');
       print('Response Body: ${response.body}');
       if (response.statusCode == 200) {
