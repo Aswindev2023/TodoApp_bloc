@@ -42,6 +42,10 @@ class TodoRepo {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(todo.toJson()),
       );
+      print('Request URL: $baseUrl');
+      print('Request Body: ${jsonEncode(todo.toJson())}');
+      print('Response Status: ${response.statusCode}');
+      print('Response Body: ${response.body}');
       if (response.statusCode == 201) {
         return TodoModel.fromJson(jsonDecode(response.body));
       } else {
@@ -57,7 +61,11 @@ class TodoRepo {
       final response = await http.put(
         Uri.parse('$baseUrl/$id'),
         headers: {'Content-type': 'application/json'},
-        body: jsonEncode(updates),
+        body: jsonEncode({
+          "userId": updates['userId'] ?? 1,
+          "id": id,
+          ...updates,
+        }),
       );
       print('Request URL: $baseUrl/$id');
       print('Request Body: ${jsonEncode(updates)}');

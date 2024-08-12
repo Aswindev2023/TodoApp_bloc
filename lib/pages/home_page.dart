@@ -34,13 +34,15 @@ class HomePage extends StatelessWidget {
                       return TodoList(
                         todo: todo,
                         onChanged: (value) {
+                          final updates = {
+                            'title': todo.title,
+                            'completed': value,
+                          };
+                          print(
+                              'Updating Todo ID ${todo.id} with data: $updates');
                           context.read<TodoBloc>().add(UpdateTodoEvent(
                                 todo.id,
-                                {
-                                  'id': todo.userId,
-                                  'title': todo.title,
-                                  'completed': value,
-                                },
+                                updates,
                               ));
                         },
                         deleteFunction: (context) => context
