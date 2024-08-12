@@ -33,11 +33,13 @@ class TodoList extends StatelessWidget {
               onPressed: (context) => editFunction!(context, todo),
               icon: Icons.edit,
               borderRadius: BorderRadius.circular(15),
+              backgroundColor: const Color.fromARGB(255, 61, 227, 66),
             ),
             SlidableAction(
               onPressed: deleteFunction,
               icon: Icons.delete,
               borderRadius: BorderRadius.circular(15),
+              backgroundColor: const Color.fromARGB(255, 252, 48, 33),
             ),
           ],
         ),

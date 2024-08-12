@@ -3,10 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/bloc/todo_bloc.dart';
 import 'package:todo_app/models/todo_model.dart';
 import 'package:todo_app/utils/edit_todo.dart';
+import 'package:todo_app/utils/snackbar_todo.dart';
 import 'package:todo_app/utils/todo_list.dart';
 
 class HomePage extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
+
+  void showSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackbarTodo(message: message).getSnackBar(),
+    );
+  }
 
   HomePage({super.key});
 
@@ -15,7 +22,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.deepPurple.shade300,
       appBar: AppBar(
-        title: const Text('Simple Todo'),
+        centerTitle: true,
+        title: const Text(
+          'To-do',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+        ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
       ),
@@ -44,10 +55,14 @@ class HomePage extends StatelessWidget {
                                 todo.id,
                                 updates,
                               ));
+                          showSnackbar(context, 'Todo Updated');
                         },
-                        deleteFunction: (context) => context
-                            .read<TodoBloc>()
-                            .add(DeleteTodoEvent(todo.id)),
+                        deleteFunction: (context) {
+                          context
+                              .read<TodoBloc>()
+                              .add(DeleteTodoEvent(todo.id));
+                          showSnackbar(context, 'Todo Deleted');
+                        },
                         editFunction: (context, todo) => showDialog(
                           context: context,
                           builder: (context) => EditTodoDialog(
@@ -100,6 +115,7 @@ class HomePage extends StatelessWidget {
                               context
                                   .read<TodoBloc>()
                                   .add(CreateTodoEvent(newTodo));
+                              showSnackbar(context, 'Todo Added');
                               _controller.clear();
                             }
                           },

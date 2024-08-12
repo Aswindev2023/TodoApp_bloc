@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/models/todo_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/bloc/todo_bloc.dart';
+import 'package:todo_app/utils/snackbar_todo.dart';
 
 class EditTodoDialog extends StatelessWidget {
   final TodoModel todo;
   final int? id;
+
+  void showSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackbarTodo(message: message).getSnackBar(),
+    );
+  }
+
   const EditTodoDialog({super.key, required this.todo, required this.id});
 
   @override
@@ -35,6 +43,7 @@ class EditTodoDialog extends StatelessWidget {
                     todo.id,
                     {'title': editController.text, 'id': id},
                   ));
+              showSnackbar(context, 'Todo Updated');
               Navigator.of(context).pop();
             }
           },
