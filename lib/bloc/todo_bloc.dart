@@ -49,7 +49,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
             await todoRepo.updateTodos(event.id, event.updatedFields);
         final currentState = state as TodoLoaded;
         final updatedTodos = currentState.items.map((todo) {
-          return todo.id == event.id ? updatedTodo : todo;
+          if (todo.id == event.id) {
+            return TodoModel(
+              id: updatedTodo.id,
+              title: event.updatedFields['title'] ?? todo.title,
+              completed: event.updatedFields.containsKey('completed')
+                  ? event.updatedFields['completed']
+                  : todo.completed,
+            );
+          } else {
+            return todo;
+          }
         }).toList();
 
         emit(TodoLoaded(updatedTodos));

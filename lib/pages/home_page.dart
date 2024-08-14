@@ -20,7 +20,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple.shade300,
+      backgroundColor: Colors.green.shade300,
+      // backgroundColor: Colors.deepPurple.shade300,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -49,8 +50,7 @@ class HomePage extends StatelessWidget {
                             'title': todo.title,
                             'completed': value,
                           };
-                          print(
-                              'Updating Todo ID ${todo.id} with data: $updates');
+
                           context.read<TodoBloc>().add(UpdateTodoEvent(
                                 todo.id,
                                 updates,

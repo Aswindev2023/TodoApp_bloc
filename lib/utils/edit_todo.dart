@@ -22,7 +22,11 @@ class EditTodoDialog extends StatelessWidget {
     editController.text = todo.title!;
 
     return AlertDialog(
-      title: const Text('Edit Todo'),
+      backgroundColor: Colors.greenAccent.shade200,
+      title: const Text(
+        'Edit Todo',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      ),
       content: TextField(
         controller: editController,
         decoration: const InputDecoration(
